@@ -43,9 +43,10 @@ DEBUG = config("DEBUG", default=False, cast=bool)
 
 
 if DEBUG:
-    ALLOWED_HOSTS = ["*.azurewebsites.net"]
-else:
     ALLOWED_HOSTS=["*"]
+else:
+    ALLOWED_HOSTS = ["*.azurewebsites.net"]
+
 
 # Application definition
 
