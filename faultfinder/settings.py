@@ -42,7 +42,7 @@ SECRET_KEY = config("DJANGO_SECRET_KEY")
 DEBUG = config("DEBUG", default=False, cast=bool)
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -124,18 +124,16 @@ if DEBUG:
     }
 else:
     DATABASES = {
-        "default": {
-            "ENGINE": "mssql",
-            "NAME": "mydb",
-            "USER": "user@myserver",
-            "PASSWORD": "password",
-            "HOST": "myserver.database.windows.net",
-            "PORT": "",
-            "OPTIONS": {
-                "driver": "ODBC Driver 17 for SQL Server",
-            },
-        },
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': config("DB_NAME"),
+            'USER': config("DB_USER"),
+            'PASSWORD': config("DB_PASSWORD"),
+            'HOST': config("DB_HOST"),
+            'PORT': '3306',
+        }
     }
+
 
 
 # Password validation
