@@ -60,4 +60,4 @@ jobs:
         with:
           app-name: 'fault-finder-api'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_E0A5B5CD89234C6496AD363EA8F15537 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_8EC1D2B95DFD4D2FBC1C67B122E39919 }}
