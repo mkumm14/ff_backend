@@ -42,8 +42,10 @@ SECRET_KEY = config("DJANGO_SECRET_KEY", get_random_secret_key())
 DEBUG = config("DEBUG", default=False, cast=bool)
 
 
-ALLOWED_HOSTS = ["*"]
-
+if DEBUG:
+    ALLOWED_HOSTS = ["*.azurewebsites.net"]
+else:
+    ALLOWED_HOSTS=["*"]
 
 # Application definition
 
@@ -88,7 +90,6 @@ MIDDLEWARE = [
 
 CORS_ALLOW_CREDENTIALS = True
 
-CORS_ALLOW_ALL_ORIGINS = True
 
 ROOT_URLCONF = "faultfinder.urls"
 
