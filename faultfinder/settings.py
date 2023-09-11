@@ -126,10 +126,10 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': config("DB_NAME"),
-            'USER': config("DB_USER"),
-            'PASSWORD': config("DB_PASSWORD"),
-            'HOST': config("DB_HOST"),
+            'NAME': config("AZURE_MYSQL_NAME"),
+            'USER': config("AZURE_MYSQL_USER"),
+            'PASSWORD': config("AZURE_MYSQL_PASSWORD"),
+            'HOST': config("AZURE_MYSQL_HOST"),
             'PORT': '3306',
         }
     }
