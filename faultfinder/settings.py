@@ -35,17 +35,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config("DJANGO_SECRET_KEY", get_random_secret_key())
+SECRET_KEY = config("DJANGO_SECRET_KEY")
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", default=False, cast=bool)
 
-
-if DEBUG:
-    ALLOWED_HOSTS=["*"]
-else:
-    ALLOWED_HOSTS = ["*.azurewebsites.net"]
 
 
 # Application definition
@@ -117,24 +112,13 @@ WSGI_APPLICATION = "faultfinder.wsgi.application"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 
-if DEBUG:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": BASE_DIR / "db.sqlite3",
-        }
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': config("AZURE_MYSQL_NAME"),
-            'USER': config("AZURE_MYSQL_USER"),
-            'PASSWORD': config("AZURE_MYSQL_PASSWORD"),
-            'HOST': config("AZURE_MYSQL_HOST"),
-            'PORT': '3306',
-        }
-    }
+}
+
 
 
 
@@ -197,7 +181,6 @@ REST_FRAMEWORK = {
 }
 
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
