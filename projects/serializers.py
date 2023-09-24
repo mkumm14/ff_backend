@@ -15,3 +15,9 @@ class CreateProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
         fields=['title','description','users','updated_by','owner']
+
+
+class UpdateProjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Project
+        fields=['title', 'description', 'updated_by']
