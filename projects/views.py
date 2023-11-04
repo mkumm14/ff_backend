@@ -1,9 +1,10 @@
-from rest_framework.generics import ListAPIView, RetrieveUpdateAPIView
+from rest_framework.generics import ListAPIView, RetrieveUpdateAPIView, RetrieveAPIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from .models import Project
 from .serializers import (
+    ProjectDetailsSerializer,
     ProjectSerializer,
     CreateProjectSerializer,
     UpdateProjectSerializer,
@@ -79,3 +80,10 @@ def update_project(request, pk):
 
 
 
+class ProjectDetailsView(RetrieveAPIView):
+    queryset=Project.objects.all()
+    serializer_class=ProjectDetailsSerializer
+    permission_classes=[IsAuthenticated]
+
+    
+    
