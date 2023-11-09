@@ -17,6 +17,7 @@ from django.conf import settings
 import os
 from django.core.management.utils import get_random_secret_key
 from decouple import config
+import dj_database_url
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -113,12 +114,22 @@ WSGI_APPLICATION = "faultfinder.wsgi.application"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+
+
+if DEBUG:
+
+    DATABASES = {
+    
+         "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
     }
-}
+
+else:
+    DATABASES={
+        "default":dj_database_url.config(default=config("DATABASE_URL"))
+    }
 
 
 
