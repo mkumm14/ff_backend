@@ -87,7 +87,15 @@ MIDDLEWARE = [
 
 CORS_ALLOW_CREDENTIALS = True
 
-CORS_ALLOW_ALL_ORIGINS=True
+
+if DEBUG:
+    CORS_ALLOW_ALL_ORIGINS=True
+
+
+else:
+
+    CORS_ALLOWED_ORIGINS=config("ALLOWED_ORIGINS")
+
 
 ROOT_URLCONF = "faultfinder.urls"
 
@@ -114,6 +122,9 @@ WSGI_APPLICATION = "faultfinder.wsgi.application"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 
+
+if not DEBUG:
+    ALLOWED_HOSTS=config("DJANGO_ALLOWED_HOSTS")
 
 
 if DEBUG:
@@ -250,7 +261,7 @@ REST_AUTH = {
     "JWT_AUTH_COOKIE": "access",
     "JWT_AUTH_REFRESH_COOKIE": "refresh",
     "JWT_AUTH_REFRESH_COOKIE_PATH": "/",
-    "JWT_AUTH_SECURE": False,
+    "JWT_AUTH_SECURE": True,
     "JWT_AUTH_HTTPONLY": True,
     "JWT_AUTH_SAMESITE": "Lax",
     "JWT_AUTH_RETURN_EXPIRATION": False,
