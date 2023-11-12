@@ -20,17 +20,18 @@ from decouple import config
 import dj_database_url
 
 
+print(os.environ.get("DEBUG"))
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-
 # adding
-# 
-# 
+#
+#
 # dsfdas
-# 
-# dafdasfda changes 
+#
+# dafdasfda changes
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -41,7 +42,6 @@ SECRET_KEY = config("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", default=False, cast=bool)
-
 
 
 # Application definition
@@ -89,12 +89,12 @@ CORS_ALLOW_CREDENTIALS = True
 
 
 if DEBUG:
-    CORS_ALLOW_ALL_ORIGINS=True
+    CORS_ALLOW_ALL_ORIGINS = True
 
 
 else:
+    CORS_ALLOWED_ORIGINS = config("ALLOWED_ORIGINS")
 
-    CORS_ALLOWED_ORIGINS=config("ALLOWED_ORIGINS")
 
 
 ROOT_URLCONF = "faultfinder.urls"
@@ -122,16 +122,13 @@ WSGI_APPLICATION = "faultfinder.wsgi.application"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 
-
 if not DEBUG:
-    ALLOWED_HOSTS=config("DJANGO_ALLOWED_HOSTS")
+    ALLOWED_HOSTS =  ["localhost", "127.0.0.1", "[::1]"]
 
 
 if DEBUG:
-
     DATABASES = {
-    
-         "default": {
+        "default": {
             "ENGINE": "django.db.backends.sqlite3",
             "NAME": BASE_DIR / "db.sqlite3",
         }
@@ -139,9 +136,8 @@ if DEBUG:
 
 else:
     DATABASES={
-        "default":dj_database_url.config(default=config("DATABASE_URL"), conn_max_age=600)
+        # "default":dj_database_url.config(default=config("DATABASE_URL"), conn_max_age=600)
     }
-
 
 
 
@@ -180,7 +176,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/"
-STATIC_ROOT= BASE_DIR/"staticfiles"
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 
 # Default primary key field type
@@ -204,7 +200,6 @@ REST_FRAMEWORK = {
     ),
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
 }
-
 
 
 SIMPLE_JWT = {
