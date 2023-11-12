@@ -16,7 +16,7 @@ from os import getenv, path
 from django.conf import settings
 import os
 from django.core.management.utils import get_random_secret_key
-from decouple import config
+from decouple import config, Csv
 import dj_database_url
 
 
@@ -121,7 +121,7 @@ WSGI_APPLICATION = "faultfinder.wsgi.application"
 
 
 if not DEBUG:
-    ALLOWED_HOSTS =  ["localhost", "127.0.0.1", "[::1]"]
+    ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='', cast=Csv())
 
 
 if DEBUG:
