@@ -12,36 +12,30 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from datetime import timedelta
 from pathlib import Path
-from os import getenv, path
 from django.conf import settings
 import os
 from django.core.management.utils import get_random_secret_key
-from decouple import config, Csv
 import dj_database_url
 
 
-#This is from fault-finder repo
+# This is from fault-finder repo
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# adding
-#
-#
-# dsfdas
-#
-# dafdasfda changes
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config("DJANGO_SECRET_KEY")
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config("DEBUG", default=False, cast=bool)
+DEBUG = bool(os.environ.get("DEBUG", default=0))
+
+
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 
 
 # Application definition
@@ -88,13 +82,7 @@ MIDDLEWARE = [
 CORS_ALLOW_CREDENTIALS = True
 
 
-if DEBUG:
-    CORS_ALLOW_ALL_ORIGINS = True
-
-
-else:
-    CORS_ALLOWED_ORIGINS = config("ALLOWED_ORIGINS")
-
+CORS_ALLOW_ALL_ORIGINS = True
 
 
 ROOT_URLCONF = "faultfinder.urls"
@@ -122,32 +110,18 @@ WSGI_APPLICATION = "faultfinder.wsgi.application"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 
-if not DEBUG:
-    ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='', cast=Csv())
-
-
-if DEBUG:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": BASE_DIR / "db.sqlite3",
-        }
+DATABASES = {
+    "default": {
+        "ENGINE": os.environ.get("SQL_ENGINE", "django.db.backends.sqlite3"),
+        "NAME": os.environ.get("SQL_DATABASE", BASE_DIR / "db.sqlite3"),
+        "USER": os.environ.get("SQL_USER", "user"),
+        "PASSWORD": os.environ.get("SQL_PASSWORD", "password"),
+        "HOST": os.environ.get("SQL_HOST", "localhost"),
+        "PORT": os.environ.get("SQL_PORT", "5432"),
     }
-
-else:
-    DATABASES={
-        "default":dj_database_url.config(default=config("DATABASE_URL"), conn_max_age=600)
-    }
+}
 
 
-
-
-### blah blah blah
-
-
-
-
-## this is blah blah blah
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
