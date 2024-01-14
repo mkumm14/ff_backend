@@ -15,8 +15,8 @@ from pathlib import Path
 from django.conf import settings
 import os
 from django.core.management.utils import get_random_secret_key
-import dj_database_url
-
+from decouple import config
+from dj_database_url import parse as db_url
 
 # This is from fault-finder repo
 
@@ -28,14 +28,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
+
+
+SECRET_KEY=config("DJANGO_SECRET_KEY", default="django-insecure-&sg6py&0gv-%xf$4gd6496#3&ehbgeplx!_yn4*r)0-)864**&")
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(os.environ.get("DEBUG", default=0))
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 
-ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -110,13 +112,13 @@ WSGI_APPLICATION = "faultfinder.wsgi.application"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 
+
 DATABASES = {
-    "default": {
-        dj_database_url.config(
-            conn_max_age=600,
-            conn_health_checks=True,
-        )
-    }
+    'default': config(
+        'DATABASE_URL',
+        default='sqlite:///' + str(BASE_DIR / 'db.sqlite3'),
+        cast=db_url
+    )
 }
 
 
