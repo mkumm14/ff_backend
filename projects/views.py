@@ -10,7 +10,7 @@ from .serializers import (
     UpdateProjectSerializer,
 )
 from rest_framework.decorators import api_view, permission_classes
-from .permissions import is_owner_or_read_only
+from .permissions import is_owner_or_read_only, IsUserOfProject
 
 
 class UserProjectView(ListAPIView):
@@ -83,7 +83,13 @@ def update_project(request, pk):
 class ProjectDetailsView(RetrieveAPIView):
     queryset=Project.objects.all()
     serializer_class=ProjectDetailsSerializer
-    permission_classes=[IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsUserOfProject]
+
+    def get_object(self):
+        obj = super().get_object()
+        self.check_object_permissions(self.request, obj)
+        return obj
+
 
     
     
