@@ -13,6 +13,7 @@ class Bug(models.Model):
     reporter = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reported_bugs')
     assigned_to = models.ManyToManyField(User, related_name='assigned_bugs', blank=True)
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='bugs')
+    image = models.ImageField(upload_to='bug_images/', blank=True, null=True)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
     updated_by = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='updated_bugs', null=True, blank=True)
