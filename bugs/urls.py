@@ -1,6 +1,6 @@
 from django.urls import path, include
-from . import views
+from .views import BugsByProjectView
 
 urlpatterns = [
-    path("<uuid:pk>/project-bugs", views.project_bugs, name="project-bugs")
+    path("<uuid:pk>/project-bugs", BugsByProjectView.as_view(), name='project_bugs')
 ]
