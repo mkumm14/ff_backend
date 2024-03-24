@@ -79,10 +79,9 @@ def update_project(request, pk):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-
 class ProjectDetailsView(RetrieveAPIView):
-    queryset=Project.objects.all()
-    serializer_class=ProjectDetailsSerializer
+    queryset = Project.objects.all()
+    serializer_class = ProjectDetailsSerializer
     permission_classes = [IsAuthenticated, IsUserOfProject]
 
     def get_object(self):
@@ -91,5 +90,21 @@ class ProjectDetailsView(RetrieveAPIView):
         return obj
 
 
-    
-    
+@api_view(["DELETE"])
+@permission_classes([IsAuthenticated])
+def delete_project(request, pk):
+    try:
+        project = Project.objects.get(pk=pk)
+    except Project.DoesNotExist:
+        return Response(
+            {"error": "Project not found"}, status=status.HTTP_404_NOT_FOUND
+        )
+
+    if not is_owner_or_read_only(request, project):
+        return Response(
+            {"error": "You do not have permission to delete this project"},
+            status=status.HTTP_403_FORBIDDEN,
+        )
+
+    project.delete()
+    return Response(status=status.HTTP_204_NO_CONTENT)
