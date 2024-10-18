@@ -1,4 +1,26 @@
 from rest_framework import serializers
+"""
+This module contains serializers for the Project model, which are used to convert model instances to JSON and vice versa.
+Classes:
+    ProjectSerializer: A serializer for the Project model that includes fields for the owner and the user who last updated the project.
+    CreateProjectSerializer: A serializer for creating new Project instances.
+    UpdateProjectSerializer: A serializer for updating existing Project instances.
+    ProjectDetailsSerializer: A serializer for detailed representation of the Project model, including related user information.
+Classes:
+    ProjectSerializer:
+        - owner: Read-only field representing the username of the project's owner.
+        - updated_by: Read-only field representing the username of the user who last updated the project.
+        - Meta: Metadata for the serializer, specifying the model and fields to include.
+    CreateProjectSerializer:
+        - Meta: Metadata for the serializer, specifying the model and fields to include for creating a project.
+    UpdateProjectSerializer:
+        - Meta: Metadata for the serializer, specifying the model and fields to include for updating a project.
+    ProjectDetailsSerializer:
+        - owner_username: Read-only field representing the username of the project's owner.
+        - users: Read-only field representing the usernames of users associated with the project.
+        - updated_by_username: Read-only field representing the username of the user who last updated the project.
+        - Meta: Metadata for the serializer, specifying the model and fields to include for detailed project representation.
+"""
 from django.contrib.auth.models import User
 from .models import Project
 
@@ -44,3 +66,8 @@ class ProjectDetailsSerializer(serializers.ModelSerializer):
         read_only_fields = ('id',)  # You can make 'id' read-only if you don't want it to be editable
 
     # If you need to perform complex data presentation you can define methods here
+
+
+
+
+

@@ -1,4 +1,21 @@
 import uuid
+"""
+models.py
+This module defines the database models for the fault-finder project.
+Classes:
+    Project: Represents a project with a title, description, owner, users, and timestamps for creation and updates.
+Models:
+    Project:
+        title (CharField): The title of the project.
+        description (TextField): A detailed description of the project.
+        owner (ForeignKey): The user who owns the project.
+        users (ManyToManyField): The users assigned to the project.
+        created_date (DateTimeField): The date and time when the project was created.
+        updated_date (DateTimeField): The date and time when the project was last updated.
+        updated_by (ForeignKey): The user who last updated the project.
+Methods:
+    __str__: Returns the string representation of the project, which is its title.
+"""
 from django.db import models
 from django.contrib.auth.models import User
 

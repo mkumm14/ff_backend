@@ -1,4 +1,29 @@
 from dj_rest_auth.app_settings import api_settings as settings
+
+"""
+Middleware for handling JWT tokens in cookies for Django Rest Framework JWT endpoints.
+Classes:
+    MoveJWTCookieIntoTheBody(MiddlewareMixin):
+        Middleware to move JWT token from cookies to the body for the "/auth/token/verify/" endpoint.
+        Methods:
+            __init__(self, get_response):
+                Initializes the middleware with the given response handler.
+            __call__(self, request):
+                Processes the request and returns the response.
+            process_view(self, request, view_func, *view_args, **view_kwargs):
+                Checks if the request path is "/auth/token/verify/" and if the JWT token is in the cookies.
+                If so, adds the token to the body payload.
+    MoveJWTRefreshCookieIntoTheBody(MiddlewareMixin):
+        Middleware to move JWT refresh token from cookies to the body for the "/auth/logout/" and "/auth/token/refresh" endpoints.
+        Methods:
+            __init__(self, get_response):
+                Initializes the middleware with the given response handler.
+            __call__(self, request):
+                Processes the request and returns the response.
+            process_view(self, request, view_func, *view_args, **view_kwargs):
+                Checks if the request path is "/auth/logout/" or "/auth/token/refresh" and if the JWT refresh token is in the cookies.
+                If so, adds the refresh token to the body payload.
+"""
 from django.utils.deprecation import MiddlewareMixin
 import json
 
@@ -60,3 +85,5 @@ class MoveJWTRefreshCookieIntoTheBody(MiddlewareMixin):
                 pass
 
         return None
+
+

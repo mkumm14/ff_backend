@@ -1,4 +1,30 @@
 from rest_framework.generics import ListAPIView, RetrieveUpdateAPIView, RetrieveAPIView
+"""
+This module contains views for managing projects in the fault-finder application.
+Classes:
+    UserProjectView(ListAPIView): View to list projects associated with the authenticated user.
+    ProjectDetailsView(RetrieveAPIView): View to retrieve details of a specific project.
+Functions:
+    create_project(request): View to create a new project.
+    update_project(request, pk): View to update an existing project.
+    delete_project(request, pk): View to delete an existing project.
+Dependencies:
+    - rest_framework.generics.ListAPIView
+    - rest_framework.generics.RetrieveUpdateAPIView
+    - rest_framework.generics.RetrieveAPIView
+    - rest_framework.response.Response
+    - rest_framework.status
+    - rest_framework.permissions.IsAuthenticated
+    - rest_framework.decorators.api_view
+    - rest_framework.decorators.permission_classes
+    - .models.Project
+    - .serializers.ProjectDetailsSerializer
+    - .serializers.ProjectSerializer
+    - .serializers.CreateProjectSerializer
+    - .serializers.UpdateProjectSerializer
+    - .permissions.is_owner_or_read_only
+    - .permissions.IsUserOfProject
+"""
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
@@ -108,3 +134,6 @@ def delete_project(request, pk):
 
     project.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+
