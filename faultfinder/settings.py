@@ -36,8 +36,8 @@ SECRET_KEY=config("DJANGO_SECRET_KEY", default="django-insecure-&sg6py&0gv-%xf$4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
+ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="fault-finder.me,api.fault-finder.me", cast=lambda v: v.split(","))
 
-ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -84,7 +84,7 @@ MIDDLEWARE = [
 CORS_ALLOW_CREDENTIALS = True
 
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = config("CORS_ALLOWED_ORIGINS", default="https://fault-finder.me,https://api.fault-finder.me", cast=lambda v: v.split(","))
 
 
 ROOT_URLCONF = "faultfinder.urls"
