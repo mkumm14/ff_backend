@@ -84,6 +84,10 @@ MIDDLEWARE = [
 CORS_ALLOW_CREDENTIALS = True
 
 
+
+
+CORS_ALLOW_ALL_ORIGINS = True
+
 CORS_ALLOWED_ORIGINS = config("CORS_ALLOWED_ORIGINS", default="https://fault-finder.me,https://api.fault-finder.me", cast=lambda v: v.split(","))
 
 
