@@ -29,18 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-# Print environment variables at startup
-print("🔹 DEBUG:", DEBUG)
-print("🔹 DATABASE_URL:", config("DATABASE_URL", default="NOT SET"))
-print("🔹 ALLOWED_HOSTS:", ALLOWED_HOSTS)
-print("🔹 CORS_ALLOWED_ORIGINS:", CORS_ALLOWED_ORIGINS)
 
-# Stop execution if DEBUG is True when it should be False
-if DEBUG:
-    print("🚨 WARNING: DEBUG is True! This might be unintended.")
-    sys.exit(1)  # Stop the Django process if DEBUG is True
-
-    
 SECRET_KEY=config("DJANGO_SECRET_KEY", default="django-insecure-&sg6py&0gv-%xf$4gd6496#3&ehbgeplx!_yn4*r)0-)864**&")
 
 
