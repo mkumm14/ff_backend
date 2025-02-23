@@ -38,8 +38,6 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="fault-finder.me,api.fault-finder.me", cast=lambda v: v.split(","))
 
-print(settings.DEBUG)
-
 
 # Application definition
 
